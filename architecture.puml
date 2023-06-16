@@ -1,0 +1,97 @@
+@startuml
+
+class main{
+    -createPage()
+    -createFavouritesPage()
+    -createBlockedPage()
+    -createToolsPage()
+    -createAboutPage()
+    -hidePages()
+    -homePage()
+}
+note top: calls functions in order
+
+class    createPage{
+}
+
+class    createFavouritesPage{
+-localStorage
+}
+
+class    createBlockedPage{
+-localStorage
+}
+
+class    createToolsPage{}
+note top: TODO
+
+class    createAboutPage{}
+note top: TODO
+
+class addSymbol{
+-localStorage
+-addSymbol(parent: Element, n: int): void
+}
+
+class    hidePages{
+-page
+-favourites
+-blocked
+-tools
+-about
+}
+
+class    homePage{
+-loadPage()
+-hidePages()
+-showFooter()
+}
+
+class loadPage{
+-page
+-PAGE_NUMBER
+-SYMBOLS_PER_PAGE
+}
+
+class hidePages{
+-page
+-PAGE_NUMBER
+}
+
+class showFooter{
+-page
+-PAGE_NUMBER
+}
+
+class UI{
+
+}
+
+class copySymbol{}
+class favourite {
+-symbol
+}
+class loadRandomizedPage{
+-page
+-SYMBOLS_PER_PAGE
+}
+UI --> favourite : on symbol right click >
+UI --> copySymbol : on  symbol left click >  
+UI --> loadRandomizedPage : Random navbar > 
+
+
+createPage --> addSymbol
+createFavouritesPage --> addSymbol
+createBlockedPage --> addSymbol
+
+hidePages *-- createPage
+hidePages *-- createFavouritesPage
+hidePages *-- createBlockedPage
+hidePages *-- createToolsPage
+hidePages *-- createAboutPage
+
+homePage *-- loadPage
+homePage *-- hidePages
+homePage *-- showFooter
+
+@enduml
