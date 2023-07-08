@@ -78,7 +78,8 @@ class loadRandomizedPage{
 UI --> favourite : on symbol right click >
 UI --> copySymbol : on  symbol left click >  
 UI --> loadRandomizedPage : Random navbar > 
-
+UI --> homePage : Home navbar > 
+main --> UI : changes state with > 
 
 createPage --> addSymbol
 createFavouritesPage --> addSymbol

@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--meta-data-->
+    <meta charset="UTF-8">
+    <meta name="description" content="Website">
+    <meta name="keywords" content="HTML, CSS, JavaScript">
+    <meta name="author" content="x">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--tab icon, created with https://www.favicon.cc/? -->
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+
+    <!--tab title-->
+    <title>UNICODE</title>
+
+    <!--css-->
+    <style>
+        :root {
+            --bg: rgba(11, 11, 11, 1);
+            --bgHeader: rgba(11, 11, 11, 0.99);
+            --hover: rgba(66, 66, 66, 0.5);
+            --favourited: rgba(0, 22, 0, 0.5);
+            --blocked: rgba(22, 0, 0, 0.5);
+        }
+
+        body {
+            background-color: var(--bg);
+            text-align: center;
+        }
+
+        h1,
+        span,
+        p {
+            color: white;
+        }
+
+        .stickyTop {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 10px;
+            background-color: var(--bgHeader);
+            z-index: 1;
+            border: 1px solid grey;
+        }
+
+        .textInput {
+            display: inline-block;
+            position: relative;
+            top: 25px;
+            border: 1px solid grey;
+            min-width: 500px;
+            width: auto;
+            padding: 5px;
+            margin: -30px 0px;
+            height: 90px;
+            font-size: 30px;
+            background-color: var(--bg);
+            color: white;
+            overflow: scroll;
+            background-color: rgba(0, 0, 0, 0);
+        }
+
+        .stickyBottom {
+            width: 100%;
+            position: -webkit-sticky;
+            position: sticky;
+            bottom: 10px;
+            left: 0%;
+
+            background-color: var(--bgHeader);
+            z-index: 1;
+            border: 1px solid grey;
+            user-select: none;
+        }
+
+        .symbolBlock {
+            display: inline-block;
+            position: relative;
+            width: 100px;
+            height: 100px;
+            border: 1px solid grey;
+            border-radius: 10px;
+            margin: 2px 2px;
+            padding: 0px 10px;
+        }
+
+        .symbolCode {
+            position: relative;
+            top: 0px;
+            color: grey;
+            font-size: x-small;
+            padding: 0px;
+            user-select: none;
+        }
+
+        .symbol {
+            position: absolute;
+            left: 1%;
+            right: 1%;
+            bottom: 1%;
+            top: -20%;
+            padding: auto;
+            /*transform: translate(-50%, -130%);*/
+            color: white;
+            font-size: 50px;
+            user-select: none;
+            font-family: "Segoe UI", "Noto Sans", "DejaVu Sans", "Code2000", "Unifont", "GNU FreeFont";
+        }
+
+        .symbolBlock:hover {
+            background-color: var(--hover);
+            /*margin: 0px 8px;*/
+        }
+
+        .clicked {
+            background-color: var(--bg);
+            /*margin: 2px 2px;*/
+            transition: background-color 1s;
+            /*, margin 1s;*/
+        }
+
+        .updated {
+            background-color: var(--bg);
+            transition: background-color 0.1s;
+        }
+
+        .favourited {
+            background-color: var(--favourited);
+            transition: background-color 0.5s;
+        }
+
+        .blocked {
+            background-color: var(--blocked);
+            transition: background-color 0.5s;
+        }
+
+        .btn {
+            display: inline-block;
+            position: relative;
+            top: 20px;
+            margin: 10px;
+            color: white;
+            font-size: 30px;
+            user-select: none;
+        }
+    </style>
+</head>
+
+<body id="body">
+    <div id="header">
+        <h1>UNICODE</h1>
+    </div>
+
+    <div class="stickyTop">
+        <div class="symbolBlock" style="width:226px; float:left" onclick="homePage(this)">
+            <p class="btn">Home</p>
+        </div>
+        <div class="symbolBlock" style="width:226px; float:left" onclick="favouritesPage(this)">
+            <p class="btn">Favourites</p>
+        </div>
+        <div class="symbolBlock" style="width:226px; float:left" onclick="blockedPage(this)">
+            <p class="btn">Blocked</p>
+        </div>
+        <div class="symbolBlock" style="width:226px; float:left" onclick="randomPage(this)">
+            <p class="btn">Random</p>
+        </div>
+        <div class="symbolBlock" style="width:226px; float:left" onclick="toolsPage(this)">
+            <p class="btn">Tools</p>
+        </div>
+        <div class="symbolBlock" style="width:226px; float:left" onclick="aboutPage(this)">
+            <p class="btn">About</p>
+        </div>
+
+        <div class="symbolBlock" onclick="document.getElementById('text').value = ''">
+            <p class="btn">Clear</p>
+        </div>
+        <div class="symbolBlock" onclick="navigator.clipboard.writeText(document.getElementById('text').value)">
+            <p class="btn">Copy</p>
+        </div>
+        <input id="text" class="textInput" type="text"> </input>
+    </div>
+
+    <div id="main">
+
+    </div>
+
+    <div id="footer" class="stickyBottom">
+        <div class="symbolBlock" onclick="prevPage(this)">
+            <p class="btn">prev</p>
+        </div>
+        <div class="symbolBlock" onclick="">
+            <p class="btn" id="pageNumber">1</p>
+        </div>
+        <div class="symbolBlock" onclick="nextPage(this)">
+            <p class="btn">next</p>
+        </div>
+    </div>
+</body>
+
+<script>
+
+    // REVIEW
+
+    // use HOME BTN to return home instead of toggling favourites, same for random page
+    // Blocked, Random, Tools, About navigation
+    // blocking feature (right click favourites,unfavourites,defaults)
+    // update home page after blocking symbols and returning home
+
+    // TODO
+
+    // blocked symbols to not be shown
+    // re-factor creation/updating
+
+
+    // tools (clear favourites, blocked. choose default font, page length, async symbol loading time etc.)
+
+    // INPUT, add ability to input next/prev page
+    // 2 BTNS, auto prev/next page (on interval of 2s goes to next page, stopped by pressing auto next again)
+    // BTN, randomized page (page loads symbols with a random code (maintain a set to remove duplicates))
+
+    // BTN show clear,input,copy
+    // move clear,input,copy to another sticky grid (allow for verticallity to show multi-line symbols)
+
+    // mousedown checking to enter the same symbol multiple times when held down
+
+    // blocked symbols set
+    // BTN BLOCKED to view all symbols blocked
+    // favourite/block entire loaded pages (mostly for blocking pages)
+
+    // input to choose SYMBOLS_PER_PAGE
+    // choose font sizes (slider)
+    // choose font family (dropdown/select)
+
+    // ability to open new tab and google unicode + integer for symbols that did not render to check
+
+    var i = 0// current char code index
+    const MAIN = document.getElementById('main')
+    const PAGE_NUMEBER = document.getElementById('pageNumber')
+    const SYMBOLS_PER_PAGE = 400
+    let mode = 0// home=0, fav=1, blocked, random, tools, about
+
+    function nextPage(block) {
+        block.classList.add('clicked')
+        setTimeout(() => block.classList.remove('clicked'), 1000)
+        const n = parseInt(PAGE_NUMEBER.innerHTML)
+        PAGE_NUMEBER.innerHTML = Math.max(1, n + 1)
+        loadPage()
+    }
+
+    function prevPage(block) {
+        block.classList.add('clicked')
+        setTimeout(() => block.classList.remove('clicked'), 1000)
+        const n = parseInt(PAGE_NUMEBER.innerHTML)
+        PAGE_NUMEBER.innerHTML = Math.max(1, n - 1)
+        loadPage()
+    }
+
+    function addSymbol(parent, n) {// adds a symbol block to the given parent
+        const symbol = String.fromCodePoint(n)
+        parent.innerHTML +=
+            `<div class="symbolBlock" onclick="copySymbol(event, this)" oncontextmenu="favourite(event, this)">\
+            <p class="symbolCode">${n}</p>\
+            <p class="symbol">${symbol}</p>\
+        </div>`
+        if (localStorage.getItem(n)) {
+            parent.children[parent.children.length - 1].classList.add("favourited")
+        } else if (localStorage.getItem(-n)) {
+            parent.children[parent.children.length - 1].classList.add("blocked")
+        }
+    }
+
+    function createPage() {// called once and creates the page html structure
+        const count = i + SYMBOLS_PER_PAGE
+        MAIN.innerHTML += `<div id='page'></div>`
+        for (let j = i; j < count; j++) {
+            //if(!localStorage.getItem(-j))// symbol code not blocked
+            addSymbol(document.getElementById(`page`), j)
+        }
+        i += SYMBOLS_PER_PAGE
+    }
+
+    function createFavouritesPage() {
+        // creates page with all favourited symbols loaded from local storage, then hides the page, un-hidden through favourites btn
+        MAIN.innerHTML += `<div id='favourites'></div>`
+        let nFavourites = 0
+        const keys = Array.from(Object.keys(localStorage)).sort((a, b) => parseInt(a) - parseInt(b))
+        for (let i = 0; i < keys.length; i++) {
+            if (parseInt(keys[i]) >= 0) {
+                addSymbol(document.getElementById(`favourites`), keys[i])
+                nFavourites++
+            }
+        }
+        localStorage.setItem("nFavourites", nFavourites)
+    }
+    function updateFavouritesPage() {
+        // checks the children symblock elements === length localstorage
+        // if not re-create the page and un-hide it
+        const page = document.getElementById('favourites')
+        console.log(localStorage.getItem("nFavourites"), page.children.length)
+        if (parseInt(localStorage.getItem("nFavourites") !== page.children.length)) {
+            page.remove()
+            createFavouritesPage()
+        }
+    }
+
+    function createBlockedPage() {
+        MAIN.innerHTML += `<div id='blocked'></div>`
+        let nBlocked = 0
+        const keys = Array.from(Object.keys(localStorage)).sort((a, b) => -parseInt(a) + parseInt(b))
+        for (let i = 0; i < keys.length; i++) {
+            if (parseInt(keys[i]) < 0) {
+                addSymbol(document.getElementById(`blocked`), -keys[i])
+                nBlocked++
+            }
+        }
+        localStorage.setItem("nBlocked", nBlocked)
+    }
+    function updateBlockedPage() {
+        const page = document.getElementById('blocked')
+        if (parseInt(localStorage.getItem("nBlocked")) !== page.children.length) {
+            page.remove()
+            createBlockedPage()
+        }
+    }
+
+    function createToolsPage() {
+        MAIN.innerHTML += `<div id='tools'><h1>tools</h1></div>`
+    }
+
+    function createAboutPage() {
+        MAIN.innerHTML += `<div id='about'><h1>about</h1></div>`
+    }
+
+    function hidePages() {// hides all pages for the intended page to be revealed
+        document.getElementById('page').style.display = 'none'
+        document.getElementById('favourites').style.display = 'none'
+        document.getElementById('blocked').style.display = 'none'
+        document.getElementById('tools').style.display = 'none'
+        document.getElementById('about').style.display = 'none'
+        location.hash = ''
+    }
+
+    function showFooter() {
+        document.getElementById('footer').style.display = 'block'
+    }
+
+    function hideFooter() {
+        document.getElementById('footer').style.display = 'none'
+    }
+
+    function homePage(block) {
+        loadPage()
+        mode=0
+        hidePages()
+        showFooter()
+        document.getElementById('page').style.display = 'block'
+    }
+    function favouritesPage(block) {
+        mode=1
+        updateFavouritesPage()
+        hidePages()
+        hideFooter()
+        document.getElementById('favourites').style.display = 'block'
+    }
+    function blockedPage(block) {
+        mode=2
+        updateBlockedPage()
+        hidePages()
+        hideFooter()
+        document.getElementById('blocked').style.display = 'block'
+    }
+    function randomPage(block) {
+        mode=3
+        hidePages()
+        hideFooter()
+        document.getElementById('page').style.display = 'block'
+        loadRandomizedPage()
+    }
+    function toolsPage(block) {
+        mode=4
+        hidePages()
+        hideFooter()
+        document.getElementById('tools').style.display = 'block'
+    }
+    function aboutPage(block) {
+        mode=5
+        hidePages()
+        hideFooter()
+        document.getElementById('about').style.display = 'block'
+    }
+
+    function loadPage() {// updates the contents of the page to present a different set of symbols
+        const n = parseInt(PAGE_NUMEBER.innerHTML)// page number to be displayed
+        i = (n - 1) * SYMBOLS_PER_PAGE
+
+        // update the page symbol blocks to present the correct unicode symbols
+        const page = document.getElementById(`page`)
+        for (let j = 0; j < page.children.length; j++) {     
+            setTimeout((n) => {
+                const block = page.children[n]
+                //block.style['background-color'] = 'white'
+                setTimeout(() => block.classList.add('updated'), 10)
+                setTimeout(() => block.classList.remove('updated'), 1000)
+
+                block.getElementsByTagName('p')[0].innerHTML = i
+                block.getElementsByTagName('p')[1].innerHTML = String.fromCodePoint(i++)
+                const code = block.getElementsByTagName('p')[0].innerHTML
+                block.classList.remove("favourited")
+                block.classList.remove("blocked")
+                if (localStorage.getItem(-code)) {
+                    block.classList.add("blocked")
+                } else if (localStorage.getItem(code)) {
+                    block.classList.add("favourited")
+                }  
+            }, j * 1, j)
+        }
+        window.location.hash = ""// move window up
+    }
+
+    function loadRandomizedPage() {
+        // changes each block to a random symbol
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * max);
+        }
+        const page = document.getElementById(`page`)
+        for (let j = 0; j < page.children.length; j++) {     
+            setTimeout((n) => {
+                const block = page.children[n]
+                const random = getRandomInt(150000)
+                //block.style['background-color'] = 'white'
+                setTimeout(() => block.classList.add('updated'), 10)
+                setTimeout(() => block.classList.remove('updated'), 1000)
+
+                block.getElementsByTagName('p')[0].innerHTML = random
+                block.getElementsByTagName('p')[1].innerHTML = String.fromCodePoint(random)
+                const code = block.getElementsByTagName('p')[0].innerHTML
+                block.classList.remove("favourited")
+                block.classList.remove("blocked")
+                if (localStorage.getItem(-code)) {
+                    block.classList.add("blocked")
+                } else if (localStorage.getItem(code)) {
+                    block.classList.add("favourited")
+                }  
+            }, j * 2, j)
+        }
+        window.location.hash = ""// move window up
+    }
+
+    function copySymbol(event, block) {
+        block.classList.add('clicked')
+        setTimeout(() => block.classList.remove('clicked'), 1000)
+
+        const symbol = block.getElementsByTagName('p')[1]
+        copyElement(symbol)
+        const text = document.getElementById('text')
+        text.value += symbol.innerHTML
+    }
+
+    function favourite(event, block) {
+        event.preventDefault()
+        const n = block.getElementsByTagName('p')[0].innerHTML
+        const c = block.getElementsByTagName('p')[1].innerHTML
+        if (localStorage.getItem(n)) {// symbol already favourited, un-favourite and block it
+            localStorage.removeItem(n)
+            block.classList.remove("favourited")
+            localStorage.setItem(-n, c)
+            block.classList.add("blocked")
+            localStorage.setItem("nBlocked", parseInt(localStorage.getItem("nBlocked"))+1)
+            localStorage.setItem("nFavourites", parseInt(localStorage.getItem("nFavourites"))-1)
+        } else if (localStorage.getItem(-n)) {// symbol already blocked, so un-block
+            localStorage.removeItem(-n)
+            block.classList.remove("blocked")
+            localStorage.setItem("nBlocked", parseInt(localStorage.getItem("nBlocked"))-1)
+        } else {// symbol neither favourited or blocked, so favourite it
+            localStorage.setItem(n, c)
+            block.classList.add("favourited")
+            localStorage.setItem("nFavourites", parseInt(localStorage.getItem("nFavourites"))+1)
+        }
+    }
+
+    function copyElement(text) {
+        navigator.clipboard.writeText(text.innerHTML)
+    }
+
+    createPage()
+    createFavouritesPage()
+    createBlockedPage()
+    createToolsPage()
+    createAboutPage()
+    hidePages()
+    homePage()
+
+</script>
+
+</html>
