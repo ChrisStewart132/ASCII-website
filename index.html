@@ -147,8 +147,8 @@
         }
 
         .about {
-            margin-left: 25%;
-            margin-right: 25%;
+            margin-left: 33%;
+            margin-right: 33%;
         }
     </style>
 </head>
@@ -330,8 +330,42 @@
         }
     }
 
-    function createToolsPage() {
-        MAIN.innerHTML += `<div id='tools'><h1>tools</h1></div>`
+    function resetFavourites(){
+        for(const key in localStorage) {
+            const code = parseInt(key);
+            if(code >= 0){
+                localStorage.removeItem(key)
+                localStorage.setItem("nFavourites", localStorage.getItem("nFavourites") - 1);
+            }
+        }
+        if(localStorage.getItem("nFavourites") !== '0'){
+            console.log("resetFavourites error.")
+        }
+    }
+
+    function resetBlocked(){
+        for(const key in localStorage) {
+            const code = parseInt(key);
+            if(code < 0){
+                localStorage.removeItem(key)
+                localStorage.setItem("nBlocked", localStorage.getItem("nBlocked") - 1);
+            }
+        }
+        if(localStorage.getItem("nBlocked") !== '0'){
+            console.log("resetBlocked error.")
+        }
+    }
+
+    function createToolsPage() { 
+        let toolsPageContent = `<div id='tools'>`
+        toolsPageContent += `<div class="symbolBlock" style="width:226px;" onclick="resetFavourites()">\
+            <p class="btn">Reset Favourites</p>\
+        </div>`
+        toolsPageContent += `<div class="symbolBlock" style="width:226px;" onclick="resetBlocked()">\
+            <p class="btn">Reset Blocked</p>\
+        </div>`
+        toolsPageContent += `</div>`
+        MAIN.innerHTML += toolsPageContent
     }
 
     function createAboutPage() {
@@ -376,7 +410,7 @@
         aboutPageContent += `${pOpen}${behind}</p>`
         aboutPageContent += `<h1>Stay Connected</h1>`
         aboutPageContent += `${pOpen}${connect}</p>`
-        console.log(aboutPageContent)
+        //console.log(aboutPageContent)
         MAIN.innerHTML += aboutPageContent
     }
 
