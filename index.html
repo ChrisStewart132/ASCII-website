@@ -145,6 +145,11 @@
             font-size: 30px;
             user-select: none;
         }
+
+        .about {
+            margin-left: 25%;
+            margin-right: 25%;
+        }
     </style>
 </head>
 
@@ -330,7 +335,49 @@
     }
 
     function createAboutPage() {
-        MAIN.innerHTML += `<div id='about'><h1>about</h1></div>`
+        let about = "Welcome to the world of ASCII art and symbol exploration! Our website is a tribute to the fascinating \
+        realm of ASCII characters, designed to provide you with an immersive journey through the vast universe of digital symbols."
+
+        let essence = "ASCII, short for American Standard Code for Information Interchange, holds a special place in the \
+        history of computing. It's the foundation of how computers communicate and represent text and symbols. ASCII has \
+        been an essential part of digital communication since the earliest days of computing, and it continues to play a \
+        pivotal role in modern technology."
+
+        let discover = "At [Your Website Name], we've curated an extensive collection of ASCII symbols, spanning from 0 \
+        to a user-defined limit, such as 200,000. Our mission is to introduce you to the creative, artistic, and technical\
+         possibilities that ASCII art offers. Whether you're an enthusiast, an artist, or just curious, you'll find something \
+         intriguing within these pages."
+
+        let what = "Navigate through our paginated catalog of ASCII symbols with ease. Use the pagination controls to explore\
+         the vast selection we've assembled. Each symbol carries its own unique charm and history, waiting for you to uncover \
+         its significance."
+
+        let behind = "[Your Name], the creator of this website, has a deep passion for ASCII art and web development. \
+        This project was born out of a love for both the technical and artistic sides of computing. The website was \
+        crafted using [Programming Languages and Tools], and [Your Name] is committed to continuously improving and \
+        expanding its features."
+
+        let connect = "Feel free to reach out to [Your Contact Information] or follow [Your Social Media Links] to \
+        stay updated on the latest additions and developments on this website. We value your feedback and look forward\
+         to sharing the world of ASCII with you. Thank you for visiting [Your Website Name]. We hope you enjoy your \
+         journey through the world of ASCII art, and we invite you to explore the endless possibilities that these characters hold."
+
+        let aboutPageContent = "<div id='about'>"
+        const pOpen = "<p class='about'>"
+        aboutPageContent += `<h1>About This Website</h1>`
+        aboutPageContent += `${pOpen}${about}</p>`
+        aboutPageContent += `<h1>The Essence of ASCII</h1>`
+        aboutPageContent += `${pOpen}${essence}</p>`
+        aboutPageContent += `<h1>Discover the Beauty of ASCII</h1>`
+        aboutPageContent += `${pOpen}${discover}</p>`
+        aboutPageContent += `<h1>What You Can Do Here</h1>`
+        aboutPageContent += `${pOpen}${what}</p>`
+        aboutPageContent += `<h1>Behind the Scenes</h1>`
+        aboutPageContent += `${pOpen}${behind}</p>`
+        aboutPageContent += `<h1>Stay Connected</h1>`
+        aboutPageContent += `${pOpen}${connect}</p>`
+        console.log(aboutPageContent)
+        MAIN.innerHTML += aboutPageContent
     }
 
     function hidePages() {// hides all pages for the intended page to be revealed
