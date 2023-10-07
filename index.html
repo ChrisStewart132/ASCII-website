@@ -304,7 +304,7 @@
         // if not re-create the page and un-hide it
         const page = document.getElementById('favourites')
         console.log(localStorage.getItem("nFavourites"), page.children.length)
-        if (parseInt(localStorage.getItem("nFavourites") !== page.children.length)) {
+        if (parseInt(localStorage.getItem("nFavourites")) !== page.children.length) {
             page.remove()
             createFavouritesPage()
         }
@@ -332,28 +332,29 @@
 
     function resetFavourites(){
         for(const key in localStorage) {
-            const code = parseInt(key);
-            if(code >= 0){
+            if(parseInt(key) >= 0){
                 localStorage.removeItem(key)
                 localStorage.setItem("nFavourites", localStorage.getItem("nFavourites") - 1);
             }
         }
-        if(localStorage.getItem("nFavourites") !== '0'){
-            console.log("resetFavourites error.")
-        }
+        // favourites reset message/prompt/flash temp message region?
     }
 
     function resetBlocked(){
         for(const key in localStorage) {
-            const code = parseInt(key);
-            if(code < 0){
+            if(parseInt(key) < 0){
                 localStorage.removeItem(key)
                 localStorage.setItem("nBlocked", localStorage.getItem("nBlocked") - 1);
             }
         }
-        if(localStorage.getItem("nBlocked") !== '0'){
-            console.log("resetBlocked error.")
-        }
+    }
+
+    function changeFont(){
+
+    }
+
+    function navigateToPage(){
+
     }
 
     function createToolsPage() { 
@@ -364,6 +365,16 @@
         toolsPageContent += `<div class="symbolBlock" style="width:226px;" onclick="resetBlocked()">\
             <p class="btn">Reset Blocked</p>\
         </div>`
+        toolsPageContent += `<div class="symbolBlock" style="width:226px;" onclick="changeFont(this)">\
+            <p class="btn">Change Font</p>\
+        </div>`
+        toolsPageContent += `<div class="symbolBlock" style="width:226px;" onclick="navigateToPage(this)">\
+            <p class="btn">Choose Page</p>\
+        </div>`
+        //block x charset
+        //fav x charset
+        //x=asian symbols/akkadian/egypt etc based on range
+
         toolsPageContent += `</div>`
         MAIN.innerHTML += toolsPageContent
     }
