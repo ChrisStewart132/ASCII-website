@@ -205,14 +205,6 @@
 </body>
 
 <script>
-
-    // REVIEW
-
-    // use HOME BTN to return home instead of toggling favourites, same for random page
-    // Blocked, Random, Tools, About navigation
-    // blocking feature (right click favourites,unfavourites,defaults)
-    // update home page after blocking symbols and returning home
-
     // TODO
 
     // blocked symbols to not be shown
@@ -330,6 +322,7 @@
         }
     }
 
+    // resets/clears local cache favourites/blocked symbols
     function resetFavourites(){
         for(const key in localStorage) {
             if(parseInt(key) >= 0){
@@ -339,7 +332,6 @@
         }
         // favourites reset message/prompt/flash temp message region?
     }
-
     function resetBlocked(){
         for(const key in localStorage) {
             if(parseInt(key) < 0){
@@ -442,8 +434,8 @@
     }
 
     function homePage(block) {
-        loadPage()
         mode=0
+        loadPage()
         hidePages()
         showFooter()
         document.getElementById('page').style.display = 'block'
@@ -488,9 +480,10 @@
 
         // update the page symbol blocks to present the correct unicode symbols
         const page = document.getElementById(`page`)
-        for (let j = 0; j < page.children.length; j++) {     
+        for (let j = 0; j < page.children.length; j++) {   
             setTimeout((n) => {
                 const block = page.children[n]
+
                 //block.style['background-color'] = 'white'
                 setTimeout(() => block.classList.add('updated'), 10)
                 setTimeout(() => block.classList.remove('updated'), 1000)
@@ -505,7 +498,14 @@
                 } else if (localStorage.getItem(code)) {
                     block.classList.add("favourited")
                 }  
-            }, j * 1, j)
+
+                if(localStorage.getItem("-" + code) !== null){// if the code is blocked (i.e the neg- of the code exists in local storage)
+                    page.children[j].style.display = "none";// hide it
+                } else {
+                    page.children[j].style.display = "inline-block";// reveal it
+                }
+
+            }, j * 1, j)// function, timeout, args
         }
         window.location.hash = ""// move window up
     }
