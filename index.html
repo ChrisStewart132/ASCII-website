@@ -500,9 +500,9 @@
                 }  
 
                 if(localStorage.getItem("-" + code) !== null){// if the code is blocked (i.e the neg- of the code exists in local storage)
-                    page.children[j].style.display = "none";// hide it
+                    page.children[n].style.display = "none";// hide it
                 } else {
-                    page.children[j].style.display = "inline-block";// reveal it
+                    page.children[n].style.display = "inline-block";// reveal it
                 }
 
             }, j * 1, j)// function, timeout, args
@@ -534,6 +534,13 @@
                 } else if (localStorage.getItem(code)) {
                     block.classList.add("favourited")
                 }  
+
+                if(localStorage.getItem("-" + code) !== null){// if the code is blocked (i.e the neg- of the code exists in local storage)
+                    page.children[n].style.display = "none";// hide it
+                } else {
+                    page.children[n].style.display = "inline-block";// reveal it
+                }
+
             }, j * 2, j)
         }
         window.location.hash = ""// move window up
