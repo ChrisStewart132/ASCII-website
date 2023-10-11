@@ -474,6 +474,29 @@
         document.getElementById('about').style.display = 'block'
     }
 
+    function updateSymbolBlock(block, i){ 
+        //block.style['background-color'] = 'white'
+        setTimeout(() => block.classList.add('updated'), 10)
+        setTimeout(() => block.classList.remove('updated'), 1000)
+
+        block.getElementsByTagName('p')[0].innerHTML = i
+        block.getElementsByTagName('p')[1].innerHTML = String.fromCodePoint(i)
+        const code = block.getElementsByTagName('p')[0].innerHTML
+        block.classList.remove("favourited")
+        block.classList.remove("blocked")
+        if (localStorage.getItem(-code)) {
+            block.classList.add("blocked")
+        } else if (localStorage.getItem(code)) {
+            block.classList.add("favourited")
+        }  
+
+        if(localStorage.getItem("-" + code) !== null){// if the code is blocked (i.e the neg- of the code exists in local storage)
+            block.style.display = "none";// hide it
+        } else {
+            block.style.display = "inline-block";// reveal it
+        }
+    }
+
     function loadPage() {// updates the contents of the page to present a different set of symbols
         const n = parseInt(PAGE_NUMEBER.innerHTML)// page number to be displayed
         i = (n - 1) * SYMBOLS_PER_PAGE
@@ -481,31 +504,8 @@
         // update the page symbol blocks to present the correct unicode symbols
         const page = document.getElementById(`page`)
         for (let j = 0; j < page.children.length; j++) {   
-            setTimeout((n) => {
-                const block = page.children[n]
-
-                //block.style['background-color'] = 'white'
-                setTimeout(() => block.classList.add('updated'), 10)
-                setTimeout(() => block.classList.remove('updated'), 1000)
-
-                block.getElementsByTagName('p')[0].innerHTML = i
-                block.getElementsByTagName('p')[1].innerHTML = String.fromCodePoint(i++)
-                const code = block.getElementsByTagName('p')[0].innerHTML
-                block.classList.remove("favourited")
-                block.classList.remove("blocked")
-                if (localStorage.getItem(-code)) {
-                    block.classList.add("blocked")
-                } else if (localStorage.getItem(code)) {
-                    block.classList.add("favourited")
-                }  
-
-                if(localStorage.getItem("-" + code) !== null){// if the code is blocked (i.e the neg- of the code exists in local storage)
-                    page.children[n].style.display = "none";// hide it
-                } else {
-                    page.children[n].style.display = "inline-block";// reveal it
-                }
-
-            }, j * 1, j)// function, timeout, args
+            setTimeout(updateSymbolBlock, j, page.children[j], i)// function, timeout, args (block, code)
+            i++
         }
         window.location.hash = ""// move window up
     }
@@ -517,31 +517,7 @@
         }
         const page = document.getElementById(`page`)
         for (let j = 0; j < page.children.length; j++) {     
-            setTimeout((n) => {
-                const block = page.children[n]
-                const random = getRandomInt(150000)
-                //block.style['background-color'] = 'white'
-                setTimeout(() => block.classList.add('updated'), 10)
-                setTimeout(() => block.classList.remove('updated'), 1000)
-
-                block.getElementsByTagName('p')[0].innerHTML = random
-                block.getElementsByTagName('p')[1].innerHTML = String.fromCodePoint(random)
-                const code = block.getElementsByTagName('p')[0].innerHTML
-                block.classList.remove("favourited")
-                block.classList.remove("blocked")
-                if (localStorage.getItem(-code)) {
-                    block.classList.add("blocked")
-                } else if (localStorage.getItem(code)) {
-                    block.classList.add("favourited")
-                }  
-
-                if(localStorage.getItem("-" + code) !== null){// if the code is blocked (i.e the neg- of the code exists in local storage)
-                    page.children[n].style.display = "none";// hide it
-                } else {
-                    page.children[n].style.display = "inline-block";// reveal it
-                }
-
-            }, j * 2, j)
+            setTimeout(updateSymbolBlock, j, page.children[j], getRandomInt(150000))
         }
         window.location.hash = ""// move window up
     }
