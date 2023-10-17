@@ -33,3 +33,15 @@ output.close()
 output = open("range_to_font.txt", mode="w")
 output.write(str(range_to_font))
 output.close()
+
+fonts = {}# map of font_name -> number of ranges compatible with
+for key in range_to_font.keys():
+    #print(key, len(range_to_font[key]))
+    for font in range_to_font[key]:
+        fonts[font] = fonts[font] + 1 if font in fonts else 1
+
+sorted_fonts = sorted(fonts.items(), key=lambda item: item[1], reverse=True)
+top_10_fonts = sorted_fonts[:10]
+print(top_10_fonts)
+        
+#print(range_to_font.keys(), len(range_to_font.keys()))
