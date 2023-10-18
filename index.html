@@ -106,7 +106,9 @@
             color: white;
             font-size: 50px;
             user-select: none;
-            font-family: "Code2000", "Segoe UI", "Noto Sans", "DejaVu Sans", "Code2000", "Unifont", "GNU FreeFont";
+            /*Papyrus to check if prior font loading*/
+            /*font-family: "Code2000", "Sun-ExtA", "Sun-ExtA", "Quivira","EversonMono", "Arial Unicode MS", "Free Serif", "Fixedsys Excelsior", "YOzFontN", "DejaVu Sans";*/
+            font-family: "Code2000","Papyrus", "Sun-ExtA", "Sun-ExtA", "Quivira","EversonMono", "Arial Unicode MS", "Free Serif", "Fixedsys Excelsior", "YOzFontN", "DejaVu Sans";
         }
 
         .symbolBlock:hover {
@@ -205,33 +207,6 @@
 </body>
 
 <script>
-    // TODO
-
-    // blocked symbols to not be shown
-    // re-factor creation/updating
-
-
-    // tools (clear favourites, blocked. choose default font, page length, async symbol loading time etc.)
-
-    // INPUT, add ability to input next/prev page
-    // 2 BTNS, auto prev/next page (on interval of 2s goes to next page, stopped by pressing auto next again)
-    // BTN, randomized page (page loads symbols with a random code (maintain a set to remove duplicates))
-
-    // BTN show clear,input,copy
-    // move clear,input,copy to another sticky grid (allow for verticallity to show multi-line symbols)
-
-    // mousedown checking to enter the same symbol multiple times when held down
-
-    // blocked symbols set
-    // BTN BLOCKED to view all symbols blocked
-    // favourite/block entire loaded pages (mostly for blocking pages)
-
-    // input to choose SYMBOLS_PER_PAGE
-    // choose font sizes (slider)
-    // choose font family (dropdown/select)
-
-    // ability to open new tab and google unicode + integer for symbols that did not render to check
-
     var i = 0// current char code index
     const MAIN = document.getElementById('main')
     const PAGE_NUMEBER = document.getElementById('pageNumber')
@@ -366,6 +341,12 @@
         </div>`
         toolsPageContent += `<div class="symbolBlock" style="width:226px;" onclick="resetBlocked()">\
             <p class="btn">Reset Blocked</p>\
+        </div>`
+        toolsPageContent += `<div class="symbolBlock" style="width:226px;" onclick="loadPageRange(0, 127)">\
+            <p class="btn">C0 Controls and Basic Latin</p>\
+        </div>`
+        toolsPageContent += `<div class="symbolBlock" style="width:226px;" onclick="loadPageRange(128512, 128591)">\
+            <p class="btn">Emoticons</p>\
         </div>`
         toolsPageContent += `<div class="symbolBlock" style="width:226px;" onclick="changeFont(this)">\
             <p class="btn">Change Font</p>\
@@ -530,6 +511,12 @@
             setTimeout(updateSymbolBlock, j, page.children[j], getRandomInt(150000))
         }
         window.location.hash = ""// move window up
+    }
+
+    function loadPageRange(start, end){
+        const r = start % SYMBOLS_PER_PAGE
+        PAGE_NUMEBER.innerHTML = Math.max(1, (start - r) / SYMBOLS_PER_PAGE)
+        homePage();
     }
 
     function copySymbol(event, block) {
