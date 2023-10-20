@@ -19,7 +19,7 @@ while i != file.tell():# keep looping while the file index continues to move
         try:
             s, e = category.split("(")[-1].split("-")
             title = category.split("U+")[0].strip()
-            category_navigation_html += f'<div class="symbolBlock" style="width:226px;" onclick="loadPageRange({s}, {e}"><p class="btn">{title}</p></div>'
+            category_navigation_html += f'<div class="symbolBlockHidden" style="width:226px;" onclick="loadPageRange({s}, {e}"><p class="btn">{title}</p></div>'
         except:
             print(category)
         t = line.split("U+")
