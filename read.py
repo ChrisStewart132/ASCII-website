@@ -18,8 +18,9 @@ while i != file.tell():# keep looping while the file index continues to move
         # navigation button html generation
         try:
             s, e = category.split("(")[-1].split("-")
+            e = e.replace(")", "")
             title = category.split("U+")[0].strip()
-            category_navigation_html += f'<div class="symbolBlockHidden" style="width:226px;" onclick="loadPageRange({s}, {e}"><p class="btn">{title}</p></div>'
+            category_navigation_html += f'<div class="symbolBlockHidden" style="width:226px;" onclick="loadPageRange({s}, {e})"><p class="symbolCode">{s}-{e}</p><p class="btn">{title}</p></div>'
         except:
             print(category)
         t = line.split("U+")
