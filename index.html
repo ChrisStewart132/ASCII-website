@@ -23,6 +23,7 @@
             --hover: rgba(66, 66, 66, 0.5);
             --favourited: rgba(0, 22, 0, 0.5);
             --blocked: rgba(22, 0, 0, 0.5);
+            --navigated: rgba(33, 33, 33, 0.5);
         }
 
         body {
@@ -137,6 +138,11 @@
 
         .updated {
             background-color: var(--bg);
+            transition: background-color 0.1s;
+        }
+
+        .navigated {
+            background-color: var(--navigated);
             transition: background-color 0.1s;
         }
 
@@ -923,6 +929,7 @@
         //block.style['background-color'] = 'white'
         setTimeout(() => block.classList.add('updated'), 10)
         setTimeout(() => block.classList.remove('updated'), 1000)
+        block.classList.remove("navigated")
 
         block.getElementsByTagName('p')[0].innerHTML = i
         block.getElementsByTagName('p')[1].innerHTML = String.fromCodePoint(i)
@@ -973,6 +980,13 @@
         homePage();
         const element = document.getElementById(`page`).children[r]
         element.scrollIntoView({ behavior: "smooth" });// move to first symbol block of the range
+        const page = document.getElementById(`page`)
+        for (let j = r; j < Math.min(SYMBOLS_PER_PAGE, r+end-start)+1; j++) {     
+            setTimeout((element)=>{
+                element.classList.add("navigated")
+                //setTimeout(()=>{element.classList.remove("navigated")}, 1000)
+            }, 100+j, page.children[j])
+        }
     }
 
     function copySymbol(event, block) {
