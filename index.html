@@ -541,23 +541,23 @@
         highlightCategorySymbols()
     }
 
+    function highlightSymbol(element){
+        element.classList.add("navigated")
+        //setTimeout(()=>{element.classList.remove("navigated")}, 1000)
+    }
+
     function highlightCategorySymbols() {
         // highlights presented symbols if they're in the current category
         const page = document.getElementById(`page`)
         const firstSymbolCode = (parseInt(PAGE_NUMBER.innerHTML)-1)*SYMBOLS_PER_PAGE
         const start = parseInt(current_category_start)
         const end = parseInt(current_category_end)
-        //console.log(start, end, firstSymbolCode, end < firstSymbolCode, start > firstSymbolCode+SYMBOLS_PER_PAGE)
         if(end < firstSymbolCode || start >= firstSymbolCode+SYMBOLS_PER_PAGE) {
             return
         }
         const r = Math.max(start, firstSymbolCode) % SYMBOLS_PER_PAGE
-        //console.log(r)
         for (let j = r; j < Math.min(page.children.length, end-firstSymbolCode+1); j++) {     
-            setTimeout((element)=>{
-                element.classList.add("navigated")
-                //setTimeout(()=>{element.classList.remove("navigated")}, 1000)
-            }, 100+j, page.children[j])
+            setTimeout(highlightSymbol, 100+j, page.children[j])
         }
     }
 
@@ -567,8 +567,13 @@
             return Math.floor(Math.random() * max);
         }
         const page = document.getElementById(`page`)
-        for (let j = 0; j < page.children.length; j++) {     
-            setTimeout(updateSymbolBlock, j, page.children[j], getRandomInt(150000))
+        for (let j = 0; j < page.children.length; j++) {  
+            const element = page.children[j]   
+            const n = getRandomInt(200000)
+            setTimeout(updateSymbolBlock, j, element, n)
+            if(n >= parseInt(current_category_start) && n <= parseInt(current_category_end)){
+                setTimeout(highlightSymbol, 100+j, element)
+            }
         }
         window.location.hash = ""// move window up
     }
