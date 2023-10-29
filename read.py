@@ -23,7 +23,7 @@ while i != file.tell():# keep looping while the file index continues to move
             e = e.replace(")", "")
             e = e.rstrip()
             title = category.split("U+")[0].strip()
-            category_navigation_html += f'<div class="symbolBlockHidden" style="width:226px;" onclick="loadPageRange({s}, {e})"><p class="symbolCode">{s}-{e}</p><p class="btn">{title}</p></div>'
+            category_navigation_html += f'<div class="symbolBlockHidden" title="{title}" style="width:226px;" onclick="loadPageRange({s}, {e})"><p class="symbolCode">{s}-{e}</p><p class="btn">{title}</p></div>'
             index_to_category[s] = title
             index_to_category[e] = title
         except:
