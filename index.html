@@ -67,7 +67,7 @@
             width: 100%;
             position: -webkit-sticky;
             position: sticky;
-            bottom: 10px;
+            bottom: 8px;
             left: 0%;
 
             background-color: var(--bgHeader);
@@ -87,9 +87,19 @@
             padding: 0px 10px;
         }
 
+        .symbolBlockFooter {
+            display: inline-block;
+            position: relative;
+            width: 120px;
+            height: 60px;
+            border: 1px solid grey;
+            border-radius: 10px;
+            margin: 2px 0px;
+            padding: 0px 5px;
+        }
         .symbolBlockHeader {
             position: relative;
-            width: 180px;
+            width: 130px;
             height: 60px;
             border: 1px solid grey;
             border-radius: 10px;
@@ -136,7 +146,7 @@
             font-family: "Code2000", "Arial Unicode MS", "Papyrus", "Sun-ExtA", "Sun-ExtA", "Quivira","EversonMono", "Arial Unicode MS", "Free Serif", "Fixedsys Excelsior", "YOzFontN", "DejaVu Sans";
         }
 
-        .symbolBlock:hover, .symbolBlockHeader:hover, .symbolBlockHidden:hover {
+        .symbolBlock:hover, .symbolBlockHeader:hover, .symbolBlockHidden:hover, .symbolBlockFooter:hover{
             background-color: var(--hover);
             /*margin: 0px 8px;*/
         }
@@ -181,7 +191,8 @@
         .btnHeader {
             display: inline-block;
             position: relative;
-            margin: 10px;
+            top: 12px;
+            margin: 1px;
             color: white;
             font-size: 30px;
             user-select: none;
@@ -236,14 +247,14 @@
     </div>
 
     <div id="footer" class="stickyBottom">
-        <div class="symbolBlock" onclick="prevPage(this)">
-            <p class="btn">prev</p>
+        <div class="symbolBlockFooter" onclick="prevPage(this)">
+            <p class="btnHeader">prev</p>
         </div>
-        <div class="symbolBlock" onclick="">
-            <p class="btn" id="pageNumber">1</p>
+        <div class="symbolBlockFooter" onclick="">
+            <p class="btnHeader" id="pageNumber">1</p>
         </div>
-        <div class="symbolBlock" onclick="nextPage(this)">
-            <p class="btn">next</p>
+        <div class="symbolBlockFooter" onclick="nextPage(this)">
+            <p class="btnHeader">next</p>
         </div>
     </div>
 </body>
