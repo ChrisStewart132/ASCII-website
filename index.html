@@ -40,22 +40,22 @@
         .stickyTop {
             position: -webkit-sticky;
             position: sticky;
-            top: 10px;
+            top: 1px;
             background-color: var(--bgHeader);
             z-index: 1;
             border: 1px solid grey;
+            height:67px;
         }
 
         .textInput {
             display: inline-block;
-            position: relative;
-            top: 25px;
+            float: left;
             border: 1px solid grey;
             min-width: 500px;
             width: auto;
             padding: 5px;
-            margin: -30px 0px;
-            height: 90px;
+            margin: 0px 0px;
+            height: 55px;
             font-size: 30px;
             background-color: var(--bg);
             color: white;
@@ -85,6 +85,18 @@
             border-radius: 10px;
             margin: 2px 2px;
             padding: 0px 10px;
+        }
+
+        .symbolBlockHeader {
+            position: relative;
+            width: 180px;
+            height: 60px;
+            border: 1px solid grey;
+            border-radius: 10px;
+            margin: 2px 2px;
+            padding: 0px 10px;
+            display:inline-block;
+            float: left;
         }
 
         .symbolBlockHidden {
@@ -124,7 +136,7 @@
             font-family: "Code2000", "Arial Unicode MS", "Papyrus", "Sun-ExtA", "Sun-ExtA", "Quivira","EversonMono", "Arial Unicode MS", "Free Serif", "Fixedsys Excelsior", "YOzFontN", "DejaVu Sans";
         }
 
-        .symbolBlock:hover, .symbolBlockHidden:hover {
+        .symbolBlock:hover, .symbolBlockHeader:hover, .symbolBlockHidden:hover {
             background-color: var(--hover);
             /*margin: 0px 8px;*/
         }
@@ -166,6 +178,15 @@
             user-select: none;
         }
 
+        .btnHeader {
+            display: inline-block;
+            position: relative;
+            margin: 10px;
+            color: white;
+            font-size: 30px;
+            user-select: none;
+        }
+
         .about {
             margin-left: 33%;
             margin-right: 33%;
@@ -179,33 +200,33 @@
     </div>
 
     <div class="stickyTop">
-        <div class="symbolBlock" style="width:226px; float:left" onclick="homePage(this)">
-            <p class="btn">Home</p>
+        <div class="symbolBlockHeader" onclick="homePage(this)">
+            <p class="btnHeader">Home</p>
         </div>
-        <div class="symbolBlock" style="width:226px; float:left" onclick="favouritesPage(this)">
-            <p class="btn">Favourites</p>
+        <div class="symbolBlockHeader" onclick="favouritesPage(this)">
+            <p class="btnHeader">Favourites</p>
         </div>
-        <div class="symbolBlock" style="width:226px; float:left" onclick="blockedPage(this)">
-            <p class="btn">Blocked</p>
+        <div class="symbolBlockHeader" onclick="blockedPage(this)">
+            <p class="btnHeader">Blocked</p>
         </div>
-        <div class="symbolBlock" style="width:226px; float:left" onclick="randomPage(this)">
-            <p class="btn">Random</p>
+        <div class="symbolBlockHeader" onclick="randomPage(this)">
+            <p class="btnHeader">Random</p>
         </div>
-        <div class="symbolBlock" style="width:226px; float:left" onclick="toolsPage(this)">
-            <p class="btn">Tools</p>
+        <div class="symbolBlockHeader" onclick="toolsPage(this)">
+            <p class="btnHeader">Tools</p>
         </div>
-        <div class="symbolBlock" style="width:226px; float:left" onclick="aboutPage(this)">
-            <p class="btn">About</p>
+        <div class="symbolBlockHeader" onclick="aboutPage(this)">
+            <p class="btnHeader">About</p>
         </div>
-        <div class="symbolBlockHidden" style="width:226px; float:left" onclick="loadCurrentCategoryPage()">
-            <p class = "btn" id="currentCategory" style="font-size: 20px; top:25%; padding: 0px;">C0 Controls and Basic Latin</p>
+        <div class="symbolBlockHeader" style="width:226px" onclick="loadCurrentCategoryPage()">
+            <p class = "btnHeader" id="currentCategory" style="font-size: 20px;">C0 Controls and Basic Latin</p>
         </div>
         
-        <div class="symbolBlock" onclick="document.getElementById('text').value = ''">
-            <p class="btn">Clear</p>
+        <div class="symbolBlockHeader" onclick="document.getElementById('text').value = ''">
+            <p class="btnHeader">Clear</p>
         </div>
-        <div class="symbolBlock" onclick="navigator.clipboard.writeText(document.getElementById('text').value)">
-            <p class="btn">Copy</p>
+        <div class="symbolBlockHeader" onclick="navigator.clipboard.writeText(document.getElementById('text').value)">
+            <p class="btnHeader">Copy</p>
         </div>
         <input id="text" class="textInput" type="text"> </input>
     </div>
