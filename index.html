@@ -673,16 +673,16 @@
     }
 
     function toggleFont(parent){
-        const symbols = document.getElementsByClassName("symbol")
-        //console.log(symbols)
         const font_index = current_font_index%fonts.length
+        document.getElementById("text").style.fontFamily = fonts[font_index] + ", " + default_font
+        const symbols = document.getElementsByClassName("symbol")
         for(let i = 0;i < symbols.length; i++){
-            //console.log(symbols)
             symbols[i].style.fontFamily = fonts[font_index] + ", " + default_font
         }
         parent.title = fonts[font_index]
         parent.children[0].innerHTML = "font(" + font_index + ")"
         current_font_index += 1
+        homePage()
     }
 
     load_range_to_font()
