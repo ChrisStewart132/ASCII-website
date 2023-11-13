@@ -10,6 +10,7 @@ font_map = {}# category(str)->fonts(list)
 range_to_font = {}# range(int,int)->fonts(list)
 index_to_category = {}# start/end->category, used to render symbol blocks marking the start and end of a category
 start_to_end = {}
+category_range = []#[[s1,e1],[s2,e2]....[sn,en]]
 
 i = -1
 while i != file.tell():# keep looping while the file index continues to move
@@ -21,13 +22,15 @@ while i != file.tell():# keep looping while the file index continues to move
         # navigation button html generation
         try:
             s, e = category.split("(")[-1].split("-")
+            s = s.strip()
             e = e.replace(")", "")
-            e = e.rstrip()
+            e = e.strip()
             title = category.split("U+")[0].strip()
             category_navigation_html += f'<div class="symbolBlockHidden" title="{title}" style="width:226px;" onclick="loadPageRange({s}, {e})"><p class="symbolCode">{s}-{e}</p><p class="btn">{title}</p></div>'
             index_to_category[s] = title
             index_to_category[e] = title
             start_to_end[s] = e
+            category_range.append([s,e])
         except:
             print(category)
         t = line.split("U+")
@@ -62,6 +65,10 @@ output.close()
 
 output = open("start_to_end.txt", mode="w")
 output.write(str(start_to_end))
+output.close()
+
+output = open("category_range.txt", mode="w")
+output.write(str(category_range))
 output.close()
 
 fonts = {}# map of font_name -> number of ranges compatible with
