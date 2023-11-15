@@ -660,6 +660,12 @@
     function loadPageRange(start, end){
         current_category_start = start
         current_category_end = end
+        for(let i = 0; i < category_range.length; i++){
+            if(category_range[i][0] == current_category_start){
+                current_category_index = i
+                break;
+            }
+        }
         const currentCategory = document.getElementById("currentCategory")
         currentCategory.innerHTML = index_to_category[start]    
 
