@@ -728,6 +728,19 @@
         }
     }
 
+    // favourites some useful unicde symbols
+    function loadDefaultFavourites(){
+        console.log("loading default favourites")
+        const mathematicalOperators = [916,928,911,934,945,946,949,947,948,952,956,960,964,961,8704,8710,8721,8745,8746,8800,8804,8805,8806,8807]
+        for(let i = 0; i < mathematicalOperators.length; i++){
+            let code = mathematicalOperators[i]
+            if(!localStorage.hasOwnProperty(code.toString())){
+                localStorage.setItem(code.toString(), String.fromCodePoint(code))
+                localStorage.setItem("nFavourites", parseInt(localStorage.getItem("nFavourites"))+1);
+            }
+        }
+    }
+
     load_range_to_font()
     createPage()
     createFavouritesPage()
@@ -736,7 +749,9 @@
     createAboutPage()
     hidePages()
     homePage()
-    toggleFont(document.getElementById("fontBtn"))
+    toggleFont(document.getElementById("fontBtn"))// font is set and incremented so must be called first
+    setTimeout(loadDefaultFavourites, 1000)
+    
 
 </script>
 
